@@ -1,5 +1,6 @@
-# Telegram Bot Framework
-python-telegram-bot==20.7
+# Pyrogram for 2GB file support
+pyrogram==2.0.106
+tgcrypto==1.2.5
 
 # Async HTTP Client
 aiohttp==3.9.1
@@ -10,9 +11,6 @@ requests==2.31.0
 
 # URL Processing
 urllib3==2.1.0
-
-# Async Support
-asyncio-throttle==1.0.2
 
 # Logging and Monitoring
 structlog==23.2.0
@@ -34,3 +32,6 @@ python-magic==0.4.27
 
 # Progress Bars
 tqdm==4.66.1
+
+# Async utilities
+asyncio-throttle==1.0.2
