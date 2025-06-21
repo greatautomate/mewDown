@@ -1,0 +1,36 @@
+# Telegram Bot Framework
+python-telegram-bot==20.7
+
+# Async HTTP Client
+aiohttp==3.9.1
+aiofiles==23.2.0
+
+# HTTP Requests
+requests==2.31.0
+
+# URL Processing
+urllib3==2.1.0
+
+# Async Support
+asyncio-throttle==1.0.2
+
+# Logging and Monitoring
+structlog==23.2.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# JSON Processing
+ujson==5.8.0
+
+# Date/Time Handling
+python-dateutil==2.8.2
+
+# Process Management
+psutil==5.9.6
+
+# File Type Detection
+python-magic==0.4.27
+
+# Progress Bars
+tqdm==4.66.1
