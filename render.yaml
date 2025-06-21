@@ -1,0 +1,45 @@
+services:
+  - type: worker
+    name: classplus-video-bot
+    runtime: docker
+    repo: https://github.com/yourusername/classplus-video-bot.git  # Replace with your repo URL
+    branch: main
+    dockerfilePath: ./Dockerfile
+
+    # Environment Variables
+    envVars:
+      - key: BOT_TOKEN
+        sync: false  # Securely prompt for token during deployment
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
+      - key: TZ
+        value: "UTC"
+      - key: FFMPEG_LOGLEVEL
+        value: "error"
+      - key: MAX_FILE_SIZE_MB
+        value: "45"  # Slightly under Telegram's 50MB limit
+      - key: MAX_CONCURRENT_DOWNLOADS
+        value: "1"   # Sequential processing
+      - key: DOWNLOAD_TIMEOUT
+        value: "600" # 10 minutes
+      - key: UPLOAD_TIMEOUT
+        value: "600" # 10 minutes
+
+    # Resource Configuration
+    scaling:
+      minInstances: 1
+      maxInstances: 1
+
+    # Disk storage for video processing
+    disk:
+      name: classplus-bot-storage
+      mountPath: /tmp/videos
+      sizeGB: 20
+
+    # Service plan
+    plan: starter
+
+    # Health check
+    healthCheckPath: /health
