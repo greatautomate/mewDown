@@ -1,15 +1,18 @@
 services:
   - type: worker
-    name: classplus-video-bot
+    name: classplus-video-bot-pyrogram
     runtime: docker
-    repo: https://github.com/yourusername/classplus-video-bot.git  # Replace with your repo URL
+    repo: https://github.com/yourusername/classplus-video-bot.git
     branch: main
     dockerfilePath: ./Dockerfile
 
-    # Environment Variables
     envVars:
       - key: BOT_TOKEN
-        sync: false  # Securely prompt for token during deployment
+        sync: false
+      - key: API_ID
+        sync: false  # Telegram API ID
+      - key: API_HASH
+        sync: false  # Telegram API Hash
       - key: PYTHONUNBUFFERED
         value: "1"
       - key: PYTHONDONTWRITEBYTECODE
@@ -19,27 +22,25 @@ services:
       - key: FFMPEG_LOGLEVEL
         value: "error"
       - key: MAX_FILE_SIZE_MB
-        value: "45"  # Slightly under Telegram's 50MB limit
+        value: "2048"  # 2GB support with Pyrogram
+      - key: INPUT_FILE_SIZE_MB
+        value: "2048"
       - key: MAX_CONCURRENT_DOWNLOADS
-        value: "1"   # Sequential processing
+        value: "1"
       - key: DOWNLOAD_TIMEOUT
-        value: "600" # 10 minutes
+        value: "1800"  # 30 minutes
       - key: UPLOAD_TIMEOUT
-        value: "600" # 10 minutes
+        value: "3600"  # 1 hour for 2GB uploads
+      - key: PROGRESS_UPDATE_INTERVAL
+        value: "10"    # Progress updates every 10%
 
-    # Resource Configuration
     scaling:
       minInstances: 1
       maxInstances: 1
 
-    # Disk storage for video processing
     disk:
       name: classplus-bot-storage
       mountPath: /tmp/videos
-      sizeGB: 20
+      sizeGB: 100  # Increased for 2GB file handling
 
-    # Service plan
-    plan: starter
-
-    # Health check
-    healthCheckPath: /health
+    plan: standard
